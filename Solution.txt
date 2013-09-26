@@ -1,0 +1,10 @@
+
+1. How to Run the program from the terminal
+- Install Ruby (if not installed)
+- From command line -  ruby zappos.rb n x
+- where n = number of products
+		x = total dollar value of the products
+
+- assuming that total value closest to x dollars
+  - means abs (totalValue - x)
+  - checking for values both above and below x dollars if no direct match found

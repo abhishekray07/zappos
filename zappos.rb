@@ -11,6 +11,7 @@ x = ARGV[1]
 $prices = Array.new
 $names = Array.new
 
+# Retrieves the products based on zappos Search API - returns a list of all products limited at 20
 def get_product_list
 
 	uri = URI.parse("http://api.zappos.com/Search/term/~1?limit=20&key=52ddafbe3ee659bad97fcce7c53592916a6bfd73")
@@ -34,6 +35,8 @@ $finalSubset = Array.new(n.to_i)
 $finalNameSubset = Array.new(n.to_i)
 
 $currentBestSum = 0
+
+# find all combinations goes through all combinations one by one to check which one performs the best
 
 def findAllCombination(prices, subSet, setIndex, subSetIndex, sum, names, subSetName)
 	if subSet.length == subSetIndex
@@ -66,6 +69,27 @@ def checkSum(subSet, sum, subSetName)
 			$currentBestSum = currSum
 		end
 	end
+end
+
+def isSubsetSum(prices, n, sum)
+    # Base Cases
+   if sum == 0
+     return true
+ 	end
+
+ 	if n == 0 && sum != 0
+ 		return false
+ 	end
+ 
+   # If last element is greater than sum, then ignore it
+   if set[n-1] > sum
+     return isSubsetSum(set, n-1, sum)
+ 	end
+
+    # else, check if sum can be obtained by any of the following
+      # (a) including the last element
+      # (b) excluding the last element   
+   return isSubsetSum(set, n-1, sum) || isSubsetSum(set, n-1, sum-set[n-1])
 end
 
 get_product_list
